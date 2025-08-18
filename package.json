@@ -1,0 +1,25 @@
+{
+  "name": "fake-products-api",
+  "version": "1.0.0",
+  "description": "Fake Products API & Dashboard - Full Stack Application",
+  "main": "index.js",
+  "scripts": {
+    "build": "cd frontend && npm install && npm run build",
+    "dev": "concurrently \"cd backend && npm run dev\" \"cd frontend && npm start\"",
+    "install-all": "npm install && cd backend && npm install && cd ../frontend && npm install"
+  },
+  "keywords": [
+    "nodejs",
+    "express",
+    "mongodb",
+    "react",
+    "typescript",
+    "api",
+    "dashboard"
+  ],
+  "author": "Indhu248",
+  "license": "MIT",
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
