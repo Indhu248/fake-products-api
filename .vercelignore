@@ -1,8 +1,1 @@
-backend/
-node_modules/
-.git/
-.gitignore
-README.md
-DEPLOYMENT.md
-deploy.sh
-package.json
+# This file is intentionally empty to prevent excluding necessary files
