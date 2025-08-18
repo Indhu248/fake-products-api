@@ -124,16 +124,6 @@ const ProductForm: React.FC<ProductFormProps> = ({ product, categories, onSubmit
     }
   };
 
-  const handleCategoriesChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const selectedOptions = Array.from(e.target.selectedOptions, option => option.value);
-    setFormData(prev => ({ ...prev, categories: selectedOptions }));
-    
-    // Clear error when user selects categories
-    if (errors.categories) {
-      setErrors(prev => ({ ...prev, categories: '' }));
-    }
-  };
-
   const handleCategoryToggle = (categoryName: string) => {
     setFormData(prev => {
       const currentCategories = prev.categories;
