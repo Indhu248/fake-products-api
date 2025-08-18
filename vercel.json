@@ -1,5 +1,5 @@
 {
-  "buildCommand": "cd frontend && npm install && npm run build",
+  "buildCommand": "node build-vercel.js",
   "outputDirectory": "frontend/build",
   "framework": "create-react-app",
   "rewrites": [
