@@ -1,5 +1,5 @@
 {
-  "buildCommand": "cd frontend && npm run build",
+  "buildCommand": "chmod +x build.sh && ./build.sh",
   "outputDirectory": "frontend/build",
   "framework": "create-react-app",
   "rewrites": [

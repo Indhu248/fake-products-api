@@ -6,7 +6,8 @@
   "scripts": {
     "build": "cd frontend && npm install && npm run build",
     "dev": "concurrently \"cd backend && npm run dev\" \"cd frontend && npm start\"",
-    "install-all": "npm install && cd backend && npm install && cd ../frontend && npm install"
+    "install-all": "npm install && cd backend && npm install && cd ../frontend && npm install",
+    "postinstall": "cd frontend && npm install"
   },
   "keywords": [
     "nodejs",
