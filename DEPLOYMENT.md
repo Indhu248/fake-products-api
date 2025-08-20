@@ -33,6 +33,72 @@ After deployment, note your backend URL:
 
 ## 🌐 Frontend Deployment (Netlify/Vercel)
 
+### ⚠️ Important: Subdirectory Configuration
+
+Since your frontend is in the `frontend/` subdirectory, you need special configuration:
+
+#### **For Vercel:**
+
+**Option 1: Use vercel.json (Recommended)**
+The `vercel.json` file is already configured in your repo root:
+
+```json
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "frontend/package.json",
+      "use": "@vercel/static-build",
+      "config": { 
+        "distDir": "build",
+        "installCommand": "cd frontend && npm install",
+        "buildCommand": "cd frontend && npm run build"
+      }
+    }
+  ],
+  "routes": [
+    { 
+      "src": "/(.*)", 
+      "dest": "/frontend/$1" 
+    }
+  ],
+  "outputDirectory": "frontend/build"
+}
+```
+
+**Option 2: Vercel Dashboard Settings**
+1. Go to your project in Vercel
+2. Open **Settings → Build & Development Settings**
+3. Set:
+   - **Root Directory:** `frontend`
+   - **Build Command:** `npm run build`
+   - **Output Directory:** `build`
+
+#### **For Netlify:**
+
+**Option 1: Use netlify.toml (Recommended)**
+The `netlify.toml` file is already configured in your repo root:
+
+```toml
+[build]
+  base = "frontend"
+  command = "npm run build"
+  publish = "build"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+```
+
+**Option 2: Netlify Dashboard Settings**
+1. Go to your project in Netlify
+2. Open **Site settings → Build & deploy**
+3. Set:
+   - **Base directory:** `frontend`
+   - **Build command:** `npm run build`
+   - **Publish directory:** `build`
+
 ### 1. Environment Variables
 Set these in your frontend hosting platform:
 
@@ -77,6 +143,12 @@ const allowedOrigins = [
    - Verify MongoDB Atlas connection string
    - Check network access and IP whitelist
 
+5. **Vercel/Netlify Build Issues**
+   - **Error**: "Could not find index.html"
+   - **Solution**: Make sure you've configured the subdirectory correctly
+   - **For Vercel**: Use the `vercel.json` file or set root directory to `frontend`
+   - **For Netlify**: Use the `netlify.toml` file or set base directory to `frontend`
+
 ### Testing Your Deployment:
 
 1. **Backend Health Check**:
@@ -102,7 +174,7 @@ const allowedOrigins = [
 - [ ] CORS origins updated with actual frontend URL
 - [ ] Database connected and working
 - [ ] All API endpoints responding
-- [ ] Frontend build successful
+- [ ] Frontend build successful (with subdirectory config)
 - [ ] CRUD operations working in production
 
 ## 🆘 Need Help?
@@ -112,3 +184,4 @@ If you encounter issues:
 2. Verify all environment variables
 3. Test backend endpoints directly
 4. Check hosting platform logs
+5. Ensure subdirectory configuration is correct
