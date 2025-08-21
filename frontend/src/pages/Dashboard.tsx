@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
+import { Link } from 'react-router-dom';
 import { Product, Category } from '../types/product';
 import { productsAPI, categoriesAPI } from '../services/api';
 import ProductList from '../components/ProductList';
@@ -131,6 +132,9 @@ const Dashboard: React.FC = () => {
       <header className="dashboard-header">
         <h1>Fake Products Dashboard</h1>
         <div className="header-actions">
+          <Link to="/demo" className="btn btn-demo">
+            🛍️ View Demo Shop
+          </Link>
           <button 
             className="btn btn-primary" 
             onClick={() => setShowForm(true)}
