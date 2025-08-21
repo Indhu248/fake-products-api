@@ -8,13 +8,40 @@ dotenv.config({ path: './config.env' });
 
 const app = express();
 
-// CORS Configuration - Allow all origins for now
+// CORS Configuration - Properly configured for cookies and CSRF
 const corsOptions = {
-  origin: '*', // Allow all origins
-  credentials: false, // Disable credentials for now
+  origin: function (origin, callback) {
+    // Allow requests with no origin (like mobile apps or curl requests)
+    if (!origin) return callback(null, true);
+    
+    const allowedOrigins = [
+      'http://localhost:3000',
+      'http://localhost:3001',
+      'https://frontend-5edcv1ug0-indhu248s-projects.vercel.app',
+      'https://frontend-mq0jli0r4-indhu248s-projects.vercel.app',
+      'https://frontend-2xzbuheji-indhu248s-projects.vercel.app',
+      'https://frontend-aheeexfg2-indhu248s-projects.vercel.app',
+      'https://frontend-reenhlodd-indhu248s-projects.vercel.app',
+      'https://frontend-q13v5og7g-indhu248s-projects.vercel.app',
+      'https://frontend-axm73pw3e-indhu248s-projects.vercel.app',
+      'https://frontend-l7guy541u-indhu248s-projects.vercel.app',
+    ];
+    
+    if (allowedOrigins.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else if (origin && origin.includes('vercel.app') && origin.includes('indhu248s-projects')) {
+      // Allow any Vercel subdomain for this project
+      callback(null, true);
+    } else {
+      console.log('CORS blocked origin:', origin);
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true, // Enable credentials for cookies
   optionsSuccessStatus: 200,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization']
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-CSRF-Token', 'X-Requested-With'],
+  exposedHeaders: ['Set-Cookie']
 };
 
 // Middleware
