@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { Link } from 'react-router-dom';
 import { Product, Category } from '../types/product';
 import { productsAPI, categoriesAPI } from '../services/api';
 import ProductList from '../components/ProductList';
 import ProductForm from '../components/ProductForm';
 import BulkImport from '../components/BulkImport';
+import DemoShop from '../components/DemoShop';
 import './Dashboard.css';
 
 const Dashboard: React.FC = () => {
@@ -18,6 +18,7 @@ const Dashboard: React.FC = () => {
   const [selectedCategory, setSelectedCategory] = useState('');
   const [showForm, setShowForm] = useState(false);
   const [showBulkImport, setShowBulkImport] = useState(false);
+  const [showDemoShop, setShowDemoShop] = useState(false);
   const [editingProduct, setEditingProduct] = useState<Product | null>(null);
 
   const fetchData = useCallback(async () => {
@@ -132,9 +133,12 @@ const Dashboard: React.FC = () => {
       <header className="dashboard-header">
         <h1>Fake Products Dashboard</h1>
         <div className="header-actions">
-          <Link to="/demo" className="btn btn-demo">
-            🛍️ View Demo Shop
-          </Link>
+          <button 
+            className="btn btn-demo" 
+            onClick={() => setShowDemoShop(true)}
+          >
+            🛍️ Demo Shop
+          </button>
           <button 
             className="btn btn-primary" 
             onClick={() => setShowForm(true)}
@@ -229,6 +233,25 @@ const Dashboard: React.FC = () => {
           onSubmit={handleBulkImport}
           onCancel={() => setShowBulkImport(false)}
         />
+      )}
+
+      {showDemoShop && (
+        <div className="demo-shop-modal">
+          <div className="demo-shop-modal-content">
+            <div className="demo-shop-modal-header">
+              <h2>🛍️ Demo Shop</h2>
+              <button 
+                className="close-btn"
+                onClick={() => setShowDemoShop(false)}
+              >
+                ×
+              </button>
+            </div>
+            <div className="demo-shop-modal-body">
+              <DemoShop />
+            </div>
+          </div>
+        </div>
       )}
     </div>
   );

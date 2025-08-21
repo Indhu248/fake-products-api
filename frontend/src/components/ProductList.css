@@ -26,7 +26,8 @@
 .product-table td {
   padding: 16px 12px;
   border-bottom: 1px solid #f3f4f6;
-  vertical-align: top;
+  vertical-align: middle;
+  height: 80px;
 }
 
 .product-table tr:hover {
@@ -34,11 +35,12 @@
 }
 
 .product-image img {
-  width: 50px;
-  height: 50px;
+  width: 60px;
+  height: 60px;
   object-fit: cover;
-  border-radius: 6px;
+  border-radius: 8px;
   border: 1px solid #e5e7eb;
+  display: block;
 }
 
 .product-id {
@@ -64,6 +66,8 @@
   flex-direction: column;
   gap: 4px;
   max-width: 250px;
+  min-height: 50px;
+  justify-content: center;
 }
 
 .title-main {
@@ -99,6 +103,8 @@
   display: flex;
   flex-wrap: wrap;
   gap: 4px;
+  min-height: 30px;
+  align-items: center;
 }
 
 .category-tag {
