@@ -10,9 +10,11 @@ const app = express();
 
 // CORS Configuration - Allow all origins for now
 const corsOptions = {
-  origin: true, // Allow all origins
-  credentials: true,
-  optionsSuccessStatus: 200
+  origin: '*', // Allow all origins
+  credentials: false, // Disable credentials for now
+  optionsSuccessStatus: 200,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
 };
 
 // Middleware
@@ -32,6 +34,12 @@ mongoose.connect(process.env.MONGODB_URI)
 // Routes
 app.use('/api/products', require('./routes/products'));
 app.use('/api/categories', require('./routes/categories'));
+
+// Debug middleware to log all requests
+app.use((req, res, next) => {
+  console.log(`${new Date().toISOString()} - ${req.method} ${req.path} - Origin: ${req.headers.origin}`);
+  next();
+});
 
 // Health check endpoint
 app.get('/health', (req, res) => {
